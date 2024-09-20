@@ -29,10 +29,10 @@ export class DisplayTableComponent {
   }
 
   openEditDialog(element: PeriodicElement, key: keyof PeriodicElement, index: number): void {
-    const dialogRef = this.dialog.open(EditDialogComponent, {
-      width: '300px',
+    const dialogRef = this.dialog.open<EditDialogComponent<any>, { value: any }>(EditDialogComponent, {
+      width: '250px',
       data: {value: element[key]}
-    })
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {

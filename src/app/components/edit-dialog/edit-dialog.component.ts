@@ -7,10 +7,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./edit-dialog.component.css']
 })
 
-export class EditDialogComponent {
+export class EditDialogComponent<T> {
   constructor(
-    public dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { value: string | number }
+    public dialogRef: MatDialogRef<EditDialogComponent<T>>,
+    @Inject(MAT_DIALOG_DATA) public data: { value: T}
   ) {}
 
   onNoClick(): void {
