@@ -10,5 +10,4 @@ export class PeriodicElement {
     this.weight = weight;
     this.symbol = symbol;
   }
-
 }

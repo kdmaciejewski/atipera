@@ -32,6 +32,7 @@ export class DataService extends RxState<{ elements: PeriodicElement[] }> {
   }
 
   updateElement(index: number, newElement: PeriodicElement){
+    // Editing done without mutating the data
     this.set({
       elements: this.get().elements.map((element, i) =>
         i === index ? newElement : element

@@ -9,11 +9,15 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule} from "@angular/forms";
+import {DataService} from "./services/data/data.service";
+import { EditDialogComponent } from './components/edit-dialog/edit-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
     AppComponent,
     DisplayTableComponent,
+    EditDialogComponent,
 
   ],
   imports: [
@@ -25,7 +29,7 @@ import {FormsModule} from "@angular/forms";
     MatIconModule,
     MatFormFieldModule,
     FormsModule,
-
+    MatDialogModule,
 
   ],
   providers: [],
