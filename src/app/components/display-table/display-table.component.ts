@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DataService} from '../../services/data/data.service';
 import {PeriodicElement} from '../../models/periodic-element.model';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
-import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs/operators';
+import {debounceTime, distinctUntilChanged, startWith, switchMap} from 'rxjs/operators';
 import {FormControl} from "@angular/forms";
 
 const COLUMNS_SCHEMA = [
@@ -20,7 +20,7 @@ const COLUMNS_SCHEMA = [
   styleUrls: ['./display-table.component.css']
 })
 
-export class DisplayTableComponent implements OnInit{
+export class DisplayTableComponent implements OnInit {
   dataSource$: Observable<PeriodicElement[]> = this.dataService.elements$;
   displayedColumns: string[] = COLUMNS_SCHEMA.map((col) => col.key);
   columnsSchema: any = COLUMNS_SCHEMA;
@@ -40,7 +40,7 @@ export class DisplayTableComponent implements OnInit{
 
   openEditDialog(element: PeriodicElement, key: keyof PeriodicElement, index: number): void {
     const dialogRef = this.dialog.open<EditDialogComponent<any>, { value: any }>(EditDialogComponent, {
-      width: '250px',
+      width: '320px',
       data: {value: element[key]}
     });
 
