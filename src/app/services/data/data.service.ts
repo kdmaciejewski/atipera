@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {RxState} from "@rx-angular/state";
-import {Observable, of, switchMap} from 'rxjs';
+import {map, Observable, of, switchMap} from 'rxjs';
 import {PeriodicElement} from "../../models/periodic-element.model";
 
 @Injectable({
@@ -10,7 +10,6 @@ export class DataService extends RxState<{ elements: PeriodicElement[] }> {
 
   constructor() {
     super();
-
     this.set({
       elements: [
         {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
@@ -41,15 +40,14 @@ export class DataService extends RxState<{ elements: PeriodicElement[] }> {
   }
 
   filterElements(filterValue: string): Observable<PeriodicElement[]> {
-    return this.elements$.pipe(
-      switchMap(elements => {
-        const lowerCaseFilter = filterValue.trim().toLowerCase();
-        return of(
-          elements.filter(element =>
-            Object.values(element).some(val =>
-              val.toString().toLowerCase().includes(lowerCaseFilter)))
+    return this.select('elements').pipe(
+      map(elements =>
+        elements.filter(element =>
+          Object.values(element).some(val =>
+            val.toString().toLowerCase().includes(filterValue.trim().toLowerCase())
+          )
         )
-      })
-    )
+      )
+    );
   }
 }
