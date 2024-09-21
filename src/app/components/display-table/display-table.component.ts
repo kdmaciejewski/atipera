@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DataService} from '../../services/data/data.service';
 import {PeriodicElement} from '../../models/periodic-element.model';
 import {Observable} from 'rxjs';
 import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
-
+import { debounceTime, distinctUntilChanged, startWith, switchMap } from 'rxjs/operators';
+import {FormControl} from "@angular/forms";
 
 const COLUMNS_SCHEMA = [
   {key: "position", type: "number", label: "Position"},
@@ -19,13 +20,22 @@ const COLUMNS_SCHEMA = [
   styleUrls: ['./display-table.component.css']
 })
 
-export class DisplayTableComponent {
+export class DisplayTableComponent implements OnInit{
   dataSource$: Observable<PeriodicElement[]> = this.dataService.elements$;
   displayedColumns: string[] = COLUMNS_SCHEMA.map((col) => col.key);
   columnsSchema: any = COLUMNS_SCHEMA;
-
+  filterControl = new FormControl('');
 
   constructor(private dataService: DataService, public dialog: MatDialog) {
+  }
+
+  ngOnInit(): void {
+    this.dataSource$ = this.filterControl.valueChanges.pipe(
+      startWith(''),
+      debounceTime(2000),
+      distinctUntilChanged(),
+      switchMap(filterValue => this.dataService.filterElements(filterValue ?? ''))
+    );
   }
 
   openEditDialog(element: PeriodicElement, key: keyof PeriodicElement, index: number): void {
