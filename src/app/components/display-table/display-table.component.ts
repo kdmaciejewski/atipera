@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DataService} from '../../services/data/data.service';
 import {PeriodicElement} from '../../models/periodic-element.model';
-import {map, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {EditDialogComponent} from "../edit-dialog/edit-dialog.component";
 import {debounceTime, distinctUntilChanged, startWith, switchMap} from 'rxjs/operators';
 import {FormControl} from "@angular/forms";

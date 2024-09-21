@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {RxState} from "@rx-angular/state";
-import {map, Observable, of, switchMap} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {PeriodicElement} from "../../models/periodic-element.model";
 
 @Injectable({
